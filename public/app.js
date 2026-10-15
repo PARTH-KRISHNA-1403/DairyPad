@@ -230,16 +230,25 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // --- Fetch WhatsApp Number from .env via Backend ---
+  // --- Fetch WhatsApp Number from Backend & LocalStorage ---
   async function fetchConfig() {
+    // 1. Check browser localStorage first for instant recall
+    const localNumber = localStorage.getItem('dairypad_whatsapp_number');
+    if (localNumber) {
+      whatsappPhoneNumber = localNumber;
+    }
+
     try {
       const res = await fetch('/api/config');
       if (res.ok) {
         const data = await res.json();
-        whatsappPhoneNumber = data.whatsappNumber || '';
+        if (data.whatsappNumber) {
+          whatsappPhoneNumber = data.whatsappNumber;
+          localStorage.setItem('dairypad_whatsapp_number', data.whatsappNumber);
+        }
       }
     } catch (err) {
-      console.warn('Could not load .env config', err);
+      console.warn('Could not load /api/config', err);
     }
   }
 
@@ -670,6 +679,10 @@ document.addEventListener('DOMContentLoaded', () => {
         finalNumber = '91' + rawDigits;
       }
 
+      // Save immediately to localStorage for instant use
+      whatsappPhoneNumber = finalNumber;
+      localStorage.setItem('dairypad_whatsapp_number', finalNumber);
+
       try {
         const res = await fetch('/api/config', {
           method: 'POST',
@@ -678,15 +691,19 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         const data = await res.json();
         if (data.success) {
-          whatsappPhoneNumber = data.whatsappNumber;
           if (numberModal) numberModal.hide();
-          showToast(`Saved +${whatsappPhoneNumber} to .env!`, true);
+          if (data.vercel && data.vercel.success) {
+            showToast(`Saved +${finalNumber} & updated Vercel environment variable!`, true);
+          } else {
+            showToast(`Saved +${finalNumber}!`, true);
+          }
         } else {
           showToast(data.error || 'Failed to save number', false);
         }
       } catch (e) {
-        console.error('Error saving number to .env', e);
-        showToast('Failed to save to .env', false);
+        console.error('Error saving number to backend', e);
+        if (numberModal) numberModal.hide();
+        showToast(`Saved +${finalNumber} in browser!`, true);
       }
     });
   }
