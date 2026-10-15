@@ -1,0 +1,645 @@
+/* DairyPad Custom Palette Design System 
+   Palette:
+   - Cream:    #FCF8F3  rgb(252, 248, 243)
+   - Mint:     #AEDADD  rgb(174, 218, 221)
+   - Caramel:  #DB996C  rgb(219, 153, 108)
+   - Slate:    #6E7DA2  rgb(110, 125, 162)
+*/
+
+:root {
+  --font-heading: 'Outfit', sans-serif;
+  --font-body: 'Plus Jakarta Sans', sans-serif;
+  
+  /* User-Defined Palette Colors */
+  --dp-cream: #FCF8F3;
+  --dp-mint: #AEDADD;
+  --dp-caramel: #DB996C;
+  --dp-slate: #6E7DA2;
+  
+  /* Semantic Tokens for Light Mode */
+  --dp-bg: #FCF8F3;
+  --dp-card-bg: #ffffff;
+  --dp-card-border: #AEDADD;
+  --dp-card-shadow: 0 10px 30px -4px rgba(110, 125, 162, 0.14);
+
+  /* Primary (Slate) & Accent (Caramel) */
+  --dp-primary: #6E7DA2;
+  --dp-primary-hover: #586585;
+  --dp-accent: #DB996C;
+  --dp-accent-hover: #c68557;
+
+  /* WhatsApp Official */
+  --dp-whatsapp: #25D366;
+  --dp-whatsapp-dark: #128C7E;
+  
+  /* Product Cards */
+  --dp-product-bg: #ffffff;
+  --dp-product-border: rgba(174, 218, 221, 0.7);
+  --dp-product-hover: rgba(252, 248, 243, 0.85);
+  
+  /* Selected Item Highlight (Warm Caramel Glow, NO ACTIVE text) */
+  --dp-highlight-border: #DB996C;
+  --dp-highlight-bg: rgba(219, 153, 108, 0.08);
+  --dp-highlight-shadow: 0 0 0 2.5px rgba(219, 153, 108, 0.3), 0 4px 12px -2px rgba(219, 153, 108, 0.16);
+
+  /* Date Rectangle */
+  --dp-date-bg: #ffffff;
+  --dp-date-border: #AEDADD;
+  --dp-date-hover-border: #DB996C;
+
+  /* Quick Increment Ovals */
+  --dp-oval-bg: #ffffff;
+  --dp-oval-border: #AEDADD;
+  --dp-oval-text: #DB996C;
+  --dp-oval-subtext: #6E7DA2;
+  --dp-oval-hover-bg: rgba(174, 218, 221, 0.25);
+  --dp-oval-hover-border: #DB996C;
+  
+  /* Extra Item Box */
+  --dp-extra-bg: rgba(174, 218, 221, 0.15);
+  --dp-extra-border: #AEDADD;
+
+  /* Text Colors */
+  --dp-text: #2c354d;
+  --dp-text-heading: #1e2538;
+  --dp-text-muted: #6E7DA2;
+}
+
+/* ZERO-SCROLL LAYOUT CONSTRAINTS (ONLY LIGHT THEME) */
+html, body {
+  height: 100%;
+  height: 100dvh;
+  margin: 0;
+  padding: 0;
+  overflow: hidden !important; /* No website scrolling */
+  box-sizing: border-box;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--dp-bg) !important;
+  color: var(--dp-text);
+  display: flex;
+  flex-direction: column;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, h5, .date-text, .send-oval-btn, .quick-oval-btn {
+  font-family: var(--font-heading);
+}
+
+.letter-spacing-1 {
+  letter-spacing: 0.05em;
+}
+
+.extra-small-label {
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+}
+
+/* App Wrapper: Exactly 100dvh */
+.app-wrapper {
+  height: 100%;
+  height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  padding: 0.35rem 0.5rem;
+  overflow: hidden;
+}
+
+.app-container {
+  height: 100%;
+  max-width: 460px;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  overflow: hidden;
+  margin: 0 auto;
+}
+
+/* Main Card: Flex-1 to fill view without scrolling */
+.main-card {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background: var(--dp-card-bg);
+  border: 1.5px solid var(--dp-card-border) !important;
+  border-radius: 18px !important;
+  box-shadow: var(--dp-card-shadow);
+  overflow: hidden;
+  min-height: 0;
+}
+
+.main-card .card-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 0.55rem 0.65rem;
+  overflow: hidden;
+  min-height: 0;
+}
+
+/* 1. TOP RECTANGLE: DATE DISPLAY */
+.date-rectangle-wrapper {
+  flex-shrink: 0;
+  margin-bottom: 0.35rem;
+}
+
+.date-rectangle {
+  background: var(--dp-date-bg);
+  cursor: pointer;
+  border-radius: 12px !important;
+  border: 2px solid var(--dp-date-border) !important;
+  padding: 0.35rem 0.55rem !important;
+  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.date-rectangle::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: linear-gradient(to bottom, var(--dp-caramel), var(--dp-mint));
+  border-radius: 4px 0 0 4px;
+}
+
+.date-rectangle:hover {
+  border-color: var(--dp-date-hover-border) !important;
+  box-shadow: 0 2px 10px rgba(219, 153, 108, 0.15);
+}
+
+.date-label-sub {
+  font-size: 0.62rem;
+  color: var(--dp-caramel) !important;
+}
+
+.date-text {
+  font-size: 1.35rem;
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  color: var(--dp-text-heading);
+}
+
+.date-nav-btn {
+  width: 34px;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  color: var(--dp-slate) !important;
+  font-size: 1.15rem;
+  background: transparent !important;
+  background-color: transparent !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  transition: transform 0.1s ease !important;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.date-nav-btn:hover,
+.date-nav-btn:focus,
+.date-nav-btn:focus-visible {
+  background: transparent !important;
+  background-color: transparent !important;
+  color: var(--dp-slate) !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+.date-nav-btn:active,
+.date-nav-btn.btn-click-anim {
+  transform: scale(0.85) !important;
+  background: transparent !important;
+  background-color: transparent !important;
+  color: var(--dp-slate) !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+/* 2. PRODUCT ROWS & ANIMATIONS */
+.product-list-container {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto; /* Internal scroll only if many custom items added */
+  margin-bottom: 0.35rem;
+  padding-right: 2px;
+}
+
+.product-list-container::-webkit-scrollbar {
+  width: 4px;
+}
+.product-list-container::-webkit-scrollbar-thumb {
+  background: var(--dp-mint);
+  border-radius: 4px;
+}
+
+.product-row-card {
+  background: var(--dp-product-bg);
+  border: 1.5px solid var(--dp-product-border);
+  border-radius: 14px;
+  padding: 0.55rem 0.75rem;
+  min-height: 54px;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  overflow: hidden;
+  user-select: none;
+  flex-shrink: 0;
+}
+
+.product-row-card:hover {
+  border-color: var(--dp-mint);
+  background-color: var(--dp-product-hover);
+}
+
+/* Highlight State (NO "ACTIVE" TEXT OVERLAY) */
+.product-row-card.is-selected {
+  border-color: var(--dp-highlight-border) !important;
+  background-color: var(--dp-highlight-bg);
+  box-shadow: var(--dp-highlight-shadow);
+}
+
+/* Checkbox - Large & Touch-Friendly for Elderly */
+.product-checkbox {
+  width: 1.65rem;
+  height: 1.65rem;
+  cursor: pointer;
+  border-radius: 7px;
+  border: 2.5px solid var(--dp-mint);
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.product-checkbox:checked {
+  background-color: var(--dp-caramel);
+  border-color: var(--dp-caramel);
+}
+
+/* Product Left (Checkbox + Name) */
+.product-left-group {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.product-name-label {
+  font-weight: 700;
+  font-size: 1.35rem; /* Large font size for easy reading */
+  line-height: 1.2;
+  margin-bottom: 0;
+  cursor: pointer;
+  color: var(--dp-text-heading);
+  letter-spacing: 0.02em;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), color 0.2s ease;
+  transform: translateX(12px);
+}
+
+.product-row-card.is-checked .product-name-label {
+  transform: translateX(0);
+}
+
+.product-row-card.is-selected .product-name-label {
+  color: var(--dp-caramel);
+}
+
+/* Product Right Input Group (Quantity + Unit) */
+.product-qty-group {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  max-width: 0;
+  opacity: 0;
+  transform: translateX(30px);
+  pointer-events: none;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.product-row-card.is-checked .product-qty-group {
+  max-width: 260px;
+  opacity: 1;
+  transform: translateX(0);
+  pointer-events: auto;
+}
+
+.product-qty-input {
+  max-width: 95px;
+  height: 42px;
+  font-family: var(--font-heading), monospace;
+  font-weight: 800;
+  text-align: right;
+  border-radius: 8px;
+  font-size: 1.35rem; /* Large and bold quantity numbers */
+  padding: 0.2rem 0.5rem;
+  border: 2px solid var(--dp-mint);
+  color: var(--dp-text-heading);
+  transition: all 0.2s ease;
+}
+
+.product-qty-input:focus {
+  border-color: var(--dp-caramel);
+  box-shadow: 0 0 0 2.5px rgba(219, 153, 108, 0.25);
+}
+
+/* Shrunk & Legible Unit Dropdown */
+.unit-dropdown {
+  width: 58px !important;
+  max-width: 58px !important;
+  height: 42px;
+  border-radius: 8px;
+  font-weight: 700;
+  padding: 0.2rem 0.25rem !important;
+  font-size: 1.05rem !important; /* Easy to read unit */
+  cursor: pointer;
+  border: 2px solid var(--dp-mint);
+  text-align: center;
+  color: var(--dp-text-heading);
+  background-position: right 2px center;
+  background-size: 10px 10px;
+}
+
+.unit-dropdown:focus {
+  border-color: var(--dp-caramel);
+  box-shadow: 0 0 0 2.5px rgba(219, 153, 108, 0.25);
+}
+
+.custom-item-delete-btn {
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 7px;
+  opacity: 0.7;
+  font-size: 0.95rem;
+}
+
+.custom-item-delete-btn:hover {
+  opacity: 1;
+  color: #ef4444;
+}
+
+/* 3. EXTRA ITEM ROW (COMPACT) */
+.extra-item-section {
+  flex-shrink: 0;
+  background-color: var(--dp-extra-bg) !important;
+  border: 1.5px solid var(--dp-extra-border) !important;
+  margin-bottom: 0.35rem;
+  border-radius: 12px !important;
+}
+
+.extra-item-section .form-control-sm {
+  height: 38px;
+  font-size: 1rem;
+  border: 1.5px solid var(--dp-mint);
+}
+
+.extra-item-section .unit-dropdown {
+  height: 38px;
+  font-size: 0.98rem !important;
+}
+
+.add-item-btn {
+  background-color: var(--dp-caramel) !important;
+  border-color: var(--dp-caramel) !important;
+  color: #ffffff !important;
+  border-radius: 8px;
+  height: 38px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.15rem;
+}
+
+/* 4. LOCKED BOTTOM DOCK (SEND + OVAL BUTTONS PINNED TO BOTTOM) */
+.locked-bottom-dock {
+  flex-shrink: 0;
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  padding-top: 0.2rem;
+}
+
+/* SEND BUTTON: SLEEK COMPACT OVAL */
+.send-oval-btn {
+  background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+  border: none;
+  border-radius: 50px;
+  min-height: 44px;
+  height: 44px;
+  padding: 0.35rem 1rem;
+  font-size: 1.05rem;
+  box-shadow: 0 4px 14px -2px rgba(37, 211, 102, 0.4);
+  transition: all 0.25s ease;
+  color: #ffffff;
+}
+
+.send-oval-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px 0 rgba(37, 211, 102, 0.5);
+  filter: brightness(1.04);
+}
+
+.send-oval-btn:active {
+  transform: translateY(1px) scale(0.98);
+}
+
+/* 3-Second Long Press Progress Indicator (Only visible when pressed and held) */
+.send-oval-btn {
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+}
+
+.send-hold-progress {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 0%;
+  background: rgba(255, 255, 255, 0.42);
+  pointer-events: none;
+  border-radius: inherit;
+  transition: width 0.15s ease-out;
+}
+
+.send-oval-btn.is-pressing .send-hold-progress {
+  width: 100%;
+  transition: width 2.75s linear;
+}
+
+/* 5. QUICK STEP BUTTONS LOCKED TO BOTTOM: [ - ] [ +0.5 ] | [ +1.0 ] [ - ] */
+.quick-increment-section {
+  padding-top: 0;
+}
+
+.quick-oval-btn {
+  background-color: var(--dp-oval-bg) !important;
+  border: 2px solid var(--dp-oval-border) !important;
+  color: var(--dp-oval-text) !important;
+  width: 112px;
+  height: 52px; /* Compact ergonomic oval pill */
+  border-radius: 9999px;
+  cursor: pointer;
+  transition: transform 0.12s ease;
+  position: relative;
+  overflow: hidden;
+  padding: 0;
+  flex-shrink: 0;
+  outline: none !important;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04) !important;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Minus Step Buttons */
+.quick-step-btn {
+  background-color: var(--dp-oval-bg) !important;
+  border: 2px solid var(--dp-oval-border) !important;
+  color: var(--dp-oval-text) !important;
+  width: 44px;
+  height: 52px;
+  border-radius: 9999px;
+  cursor: pointer;
+  transition: transform 0.12s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  flex-shrink: 0;
+  outline: none !important;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04) !important;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Ensure no persistent appearance change on hover, focus, or after clicking */
+.quick-oval-btn:hover,
+.quick-oval-btn:focus,
+.quick-oval-btn:focus-visible,
+.quick-step-btn:hover,
+.quick-step-btn:focus,
+.quick-step-btn:focus-visible {
+  background-color: var(--dp-oval-bg) !important;
+  border-color: var(--dp-oval-border) !important;
+  color: var(--dp-oval-text) !important;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04) !important;
+  outline: none !important;
+}
+
+/* Ensure child elements do not change color */
+.quick-oval-btn:hover *,
+.quick-oval-btn:focus *,
+.quick-oval-btn:focus-visible *,
+.quick-oval-btn:active *,
+.quick-step-btn:hover *,
+.quick-step-btn:focus *,
+.quick-step-btn:focus-visible *,
+.quick-step-btn:active * {
+  color: inherit !important;
+}
+
+/* Only momentary click press animation */
+.quick-oval-btn:active,
+.quick-step-btn:active,
+.quick-oval-btn.btn-click-anim,
+.quick-step-btn.btn-click-anim {
+  transform: scale(0.91) !important;
+  background-color: var(--dp-oval-bg) !important;
+  border-color: var(--dp-oval-border) !important;
+  color: var(--dp-oval-text) !important;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04) !important;
+  outline: none !important;
+}
+
+.step-symbol {
+  font-size: 1.6rem;
+  line-height: 1;
+  color: var(--dp-oval-text);
+  margin-top: -2px;
+}
+
+/* Thin grey vertical line between both + groups */
+.quick-buttons-divider {
+  width: 1.5px;
+  height: 38px;
+  background-color: #cbd5e1;
+  border-radius: 2px;
+  flex-shrink: 0;
+  margin: 0 2px;
+}
+
+.oval-plus-symbol {
+  color: var(--dp-oval-text) !important;
+  font-size: 1.25rem;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+.oval-unit-label {
+  color: var(--dp-oval-subtext) !important;
+  font-size: 0.68rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  line-height: 1;
+}
+
+/* Selected Product Badge */
+.selected-product-badge {
+  background-color: var(--dp-caramel) !important;
+  color: #ffffff !important;
+  font-size: 0.72rem;
+  padding: 0.15rem 0.4rem;
+}
+
+/* Micro-animations */
+@keyframes qtyPop {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.08); color: var(--dp-caramel); }
+  100% { transform: scale(1); }
+}
+
+.qty-pop {
+  animation: qtyPop 0.25s ease;
+}
+
+.floating-add-indicator {
+  position: absolute;
+  color: var(--dp-caramel);
+  font-weight: 800;
+  font-size: 1.05rem;
+  pointer-events: none;
+  animation: floatUpFade 0.5s ease forwards;
+  z-index: 10;
+}
+
+@keyframes floatUpFade {
+  0% { opacity: 1; transform: translateY(0) scale(0.9); }
+  100% { opacity: 0; transform: translateY(-22px) scale(1.15); }
+}
+
+/* Modal styling */
+.btn-dp-primary {
+  background-color: var(--dp-slate);
+  border-color: var(--dp-slate);
+  color: #ffffff;
+}
+
+.btn-dp-primary:hover {
+  background-color: var(--dp-primary-hover);
+  border-color: var(--dp-primary-hover);
+  color: #ffffff;
+}
